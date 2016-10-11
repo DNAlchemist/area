@@ -17,4 +17,5 @@ public interface MovableUnit extends Unit {
 
     void setActive( boolean isActive );
 
+    boolean isCollide( Unit unit );
 }

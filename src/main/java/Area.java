@@ -38,7 +38,7 @@ public class Area implements Runnable {
             }
             units.parallelStream().filter( MovableUnit::isActive ).forEach( MovableUnit::move );
             units.parallelStream().filter( unit -> !unit.isActive() ).forEach( unit -> {
-                if( units.parallelStream().filter( MovableUnit::isActive ).noneMatch( unit2 -> MovableActions.isCollide( unit, unit2 ) ) ) {
+                if( units.parallelStream().filter( MovableUnit::isActive ).noneMatch( unit::isCollide ) ) {
                     unit.setActive( true );
                 }
             } );
@@ -51,7 +51,7 @@ public class Area implements Runnable {
                             if( logger.isDebugEnabled() ) {
                                 logger.debug( lh + " - " + unit );
                             }
-                            return MovableActions.isCollide( unit, lh );
+                            return unit.isCollide( lh );
                         } )
                         .findAny()
                         .ifPresent( unit -> {

@@ -19,22 +19,24 @@ public class MovableActions {
     public static void collide( Collection<MovableUnit> movable ) {
         HashSet<MovableUnit> copyMovable = new HashSet<>( movable );
         new HashSet<>( movable ).stream().filter( MovableUnit::isActive ).forEach( m -> {
-            copyMovable.stream().filter( MovableUnit::isActive ).forEach( m2 -> {
-                if( m == m2 || !m2.isActive() )return;
-                if( isCollide( m, m2 ) ) {
-                    logger.trace( "Collide " + m + " and " + m2 );
-                    double sx = m.getX() - m2.getX();
-                    double sy = m.getY() - m2.getY();
-                    double sxynorm = Math.sqrt( sx * sx + sy * sy );
-                    double sxn = sx / sxynorm;
-                    double syn = sy / sxynorm;
-                    double pn = ( m.getDx() ) * sxn + ( m.getDy() ) * syn;
-                    double px = 2 * sxn * pn;
-                    double py = 2 * syn * pn;
+            copyMovable.stream()
+                    .filter( MovableUnit::isActive )
+                    .filter( unit -> unit != m )
+                    .filter( m::isCollide )
+                    .forEach( m2 -> {
 
-                    m.setDx( m.getDx() - px );
-                    m.setDy( m.getDy() - py );
-                }
+                        logger.trace( "Collide " + m + " and " + m2 );
+                        double sx = m.getX() - m2.getX();
+                        double sy = m.getY() - m2.getY();
+                        double sxynorm = Math.sqrt( sx * sx + sy * sy );
+                        double sxn = sx / sxynorm;
+                        double syn = sy / sxynorm;
+                        double pn = ( m.getDx() ) * sxn + ( m.getDy() ) * syn;
+                        double px = 2 * sxn * pn;
+                        double py = 2 * syn * pn;
+
+                        m.setDx( m.getDx() - px );
+                        m.setDy( m.getDy() - py );
             } );
         } );
     }

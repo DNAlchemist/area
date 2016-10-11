@@ -93,6 +93,11 @@ public class Person implements MovableUnit {
     }
 
     @Override
+    public boolean isCollide( Unit unit ) {
+        return MovableActions.isCollide( this, unit );
+    }
+
+    @Override
     public String toString() {
         return "Person( id = " + id + ", x = " + x + ", y = " + y + ", dx = " + dx + ", dy = " + dy + ( !active ? ", state: inactive" : "" ) + " )";
     }
