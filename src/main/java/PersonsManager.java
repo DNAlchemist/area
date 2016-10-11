@@ -24,6 +24,11 @@ public class PersonsManager {
             throw new NullPointerException();
 
         Person person = new Person( id, x != null ? x : Rand.uniform( Area.PREF_AREA_WIDTH ), y != null ? y : Rand.uniform( Area.PREF_AREA_HEIGHT ) );
+        if( logger.isWarnEnabled() ) {
+            Area.getInstance()
+                    .getUnitByID( id )
+                    .ifPresent( unit -> logger.warn( "Person with id " + id + " already exists and will be overwriten.\n" + unit ) );
+        }
         Area.getInstance().addUnit( person );
         return person.toString();
     }

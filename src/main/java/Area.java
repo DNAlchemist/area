@@ -100,7 +100,7 @@ public class Area implements Runnable {
 
     public Optional<MovableUnit> getUnitByID( String id ) {
         if( id == null ) {
-            return null;
+            return Optional.empty();
         }
         return units.parallelStream().filter( unit -> unit.getID().equals( id ) ).findAny();
     }
