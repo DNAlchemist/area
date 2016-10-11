@@ -1,5 +1,7 @@
 import groovy.transform.CompileStatic
 import spock.lang.Specification
+
+import java.util.concurrent.TimeUnit
 /**
  * Created by ruslan on 08.10.16.
  */
@@ -140,27 +142,26 @@ class PersonTest extends Specification {
 
     def "Test lighthouse"() {
         when:
-        def result = [:]
         def person = new Person( "0" , 100, 100 );
         Area.getInstance().addUnit( person );
         Thread.start( Area.getInstance().&run );
-        Area.getInstance().addLighhouse( new LighthouseImpl( "0", 120, 120, 10, { result.message = "It's ok" }, 10 ) );
-        Thread.sleep( 1000 );
-        def message = result.message
+        def lighthouse = new LighthouseImpl( "0", 120, 120, 10, { return "It's ok" }, 10 );
+        Area.getInstance().addLighhouse( lighthouse );
+        def message = lighthouse.get( 5, TimeUnit.SECONDS )
         then:
-        message == "It's ok";
+        message == "It's ok"
     }
 
     def "Test lighthouse different ids"() {
-        when:
-        def result = [:]
+        setup:
         def person = new Person( "0" , 100, 100 );
         Area.getInstance().addUnit( person );
         Thread.start( Area.getInstance().&run );
-        Area.getInstance().addLighhouse( new LighthouseImpl( "1", 120, 120, 10, { result.message = "It's ok" }, 10 ) );
-        Thread.sleep( 1000 );
-        def message = result.message
+        def lighthouse = new LighthouseImpl( "1", 120, 120, 10, { return "It's ok" }, 10 );
+        Area.getInstance().addLighhouse( lighthouse );
+        when:
+        def result = lighthouse.get();
         then:
-        !message
+        !result
     }
 }
