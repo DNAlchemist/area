@@ -21,7 +21,6 @@ public class MovableActions {
         new HashSet<>( movable ).stream().filter( MovableUnit::isActive ).forEach( m -> {
             copyMovable.stream().filter( MovableUnit::isActive ).forEach( m2 -> {
                 if( m == m2 || !m2.isActive() )return;
-                double l = Math.sqrt( Math.pow( m2.getX() - m.getX(), 2 ) + Math.pow( m2.getY() - m.getY(), 2 ) );
                 if( isCollide( m, m2 ) ) {
                     logger.trace( "Collide " + m + " and " + m2 );
                     double sx = m.getX() - m2.getX();
