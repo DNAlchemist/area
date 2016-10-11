@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import java.lang.invoke.MethodHandles;
 import java.util.Objects;
+import java.util.Optional;
 
 @Path( "manage/persons" )
 public class PersonsManager {
@@ -37,9 +38,19 @@ public class PersonsManager {
     @Path( "delete" )
     @Produces( "text/plain" )
     public String delete( @QueryParam( "id" ) String id ) {
-        Objects.requireNonNull( id );
-        Area.getInstance().removeUnitByID( id );
         logger.info( "Found GET request on manage/persons/delete" );
-        return "Person( id = " + id + " )";
+        Objects.requireNonNull( id );
+        Optional<MovableUnit> optional = Area.getInstance().removeUnitByID( id );
+        return optional.isPresent() ? optional.get().toString() : "null";
+    }
+
+    @GET
+    @Path( "get" )
+    @Produces( "text/plain" )
+    public String get( @QueryParam( "id" ) String id ) {
+        logger.info( "Found GET request on manage/persons/get" );
+        Objects.requireNonNull( id );
+        Optional<MovableUnit> optional = Area.getInstance().getUnitByID( id );
+        return optional.isPresent() ? optional.get().toString() : "null";
     }
 }

@@ -152,7 +152,7 @@ class PersonTest extends Specification {
         Thread.start( Area.getInstance().&run );
         def lighthouse = new LighthouseImpl( "0", 120, 120, 10, { return "It's ok" }, 10 );
         Area.getInstance().addLighhouse( lighthouse );
-        def message = lighthouse.get( 5, TimeUnit.SECONDS )
+        def message = lighthouse.get( 10, TimeUnit.SECONDS )
         then:
         message == "It's ok"
     }
