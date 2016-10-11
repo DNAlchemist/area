@@ -3,7 +3,8 @@
 ## How to run application
 
 ```bash
-./gradlew appRun```
+./gradlew appRun
+```
 
 open in browser: http://localhost:8080/area
 
@@ -25,9 +26,11 @@ Result will be placed in path: "build/reports/tests/test/"
 ./gradlew war
 ```
 
-```REST
+##REST
+
 ```
 add person: manage/persons/put?id=${id}
             manage/persons/put?id=${id}&x=${x}&y=${y}
 
 remove person: manage/persons/delete?id=${id}
+```
