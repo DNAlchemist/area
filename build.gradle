@@ -16,8 +16,8 @@ dependencies {
     // logging
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'ch.qos.logback:logback-classic:1.0.13'
-   
-    // gretty + jersey
-    compile group: 'org.akhikhl.gretty', name: 'gretty-spock', version: '1.4.0'
+
+
+    // jersey
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.16'
 }
