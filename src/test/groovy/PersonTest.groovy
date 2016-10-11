@@ -9,8 +9,9 @@ import java.util.concurrent.TimeUnit
 class PersonTest extends Specification {
 
     def "Test person move"() {
-        when:
+        setup:
         def person = new Person( "0", 200, 200 );
+        when:
         person.move();
         def x = person.x;
         def y = person.y;
@@ -41,7 +42,17 @@ class PersonTest extends Specification {
         person == person2
     }
 
-    def "Test person hashCode"() {
+    def "Test person hashCode is equal"() {
+        when:
+        def person = new Person( "300", 200, 200 );
+        def person2 = new Person( "300", 200, 200 );
+        def hashCode = person.hashCode()
+        def hashCode2 = person2.hashCode()
+        then:
+        hashCode == hashCode2
+    }
+
+    def "Test person hashCode is differ"() {
         when:
         def person = new Person( "300", 200, 200 );
         def person2 = new Person( "500", 200, 200 );
@@ -49,19 +60,13 @@ class PersonTest extends Specification {
         def hashCode2 = person2.hashCode()
         then:
         hashCode != hashCode2
-        when:
-        person = new Person( "300", 200, 200 );
-        person2 = new Person( "300", 200, 200 );
-        hashCode = person.hashCode()
-        hashCode2 = person2.hashCode()
-        then:
-        hashCode == hashCode2
     }
 
     def "Test person collide"() {
-        when:
+        setup:
         def person1 = new Person( "0", 200, 200 );
         def person2 = new Person( "1", 214, 214 );
+        when:
         person1.dx = -1D;
         person1.dy = -1D;
         def dx1 = Math.round( person1.getDx() )
