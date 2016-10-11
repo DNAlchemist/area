@@ -107,7 +107,9 @@ public class Area implements Runnable {
         return units.parallelStream().filter( unit -> unit.getID().equals( id ) ).findAny();
     }
 
-    public void removeUnitByID( String id ) {
-        getUnitByID( id ).ifPresent( units::remove );
+    public Optional<MovableUnit> removeUnitByID(String id ) {
+        Optional<MovableUnit> optional = getUnitByID( id );
+        optional.ifPresent( units::remove );
+        return optional;
     }
 }
