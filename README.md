@@ -13,12 +13,12 @@ open in browser: http://localhost:8080/area
 ```bash
 ./gradlew integrationTest
 ```
-Result will be placed in path: "build/reports/tests/integrationTest/"
+Result will be placed in path: "build/reports/tests/integrationTest/index.html"
 
 ```bash
 ./gradlew test
 ```
-Result will be placed in path: "build/reports/tests/test/"
+Result will be placed in path: "build/reports/tests/test/index.html"
 
 ## How to build war
 
