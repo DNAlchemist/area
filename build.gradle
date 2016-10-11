@@ -1,0 +1,23 @@
+plugins {
+    id "org.akhikhl.gretty" version "1.2.4"
+}
+
+repositories {
+  jcenter()
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+apply from: 'integrationTest.groovy'
+
+dependencies {
+    // logging
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'ch.qos.logback:logback-classic:1.0.13'
+   
+    // gretty + jersey
+    compile group: 'org.akhikhl.gretty', name: 'gretty-spock', version: '1.4.0'
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.16'
+}
