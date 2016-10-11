@@ -48,7 +48,9 @@ public class Area implements Runnable {
                         .filter( MovableUnit::isActive )
                         .filter( unit -> lh.getID().equals( unit.getID() ) )
                         .filter( unit -> {
-                            logger.debug( lh + " - " + unit );
+                            if( logger.isDebugEnabled() ) {
+                                logger.debug( lh + " - " + unit );
+                            }
                             return MovableActions.isCollide( unit, lh );
                         } )
                         .findAny()
