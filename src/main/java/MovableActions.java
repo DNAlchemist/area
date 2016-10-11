@@ -43,7 +43,7 @@ public class MovableActions {
 
     public static void collideBorder( Collection<MovableUnit> movable, int height, int width ) {
         movable.stream().filter( MovableUnit::isActive ).forEach( person -> {
-            logger.trace( "Collide border: " + movable );
+            logger.trace( "Collide border: " + person );
             double x = person.getX();
             double dx = person.getDx();
             double y = person.getY();
