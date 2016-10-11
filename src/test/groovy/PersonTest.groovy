@@ -150,4 +150,17 @@ class PersonTest extends Specification {
         then:
         message == "It's ok";
     }
+
+    def "Test lighthouse different ids"() {
+        when:
+        def result = [:]
+        def person = new Person( "0" , 100, 100 );
+        Area.getInstance().addUnit( person );
+        Thread.start( Area.getInstance().&run );
+        Area.getInstance().addLighhouse( new LighthouseImpl( "1", 120, 120, 10, { result.message = "It's ok" }, 10 ) );
+        Thread.sleep( 1000 );
+        def message = result.message
+        then:
+        !message
+    }
 }
