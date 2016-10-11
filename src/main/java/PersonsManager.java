@@ -1,7 +1,6 @@
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,23 +9,21 @@ import java.lang.invoke.MethodHandles;
 import java.util.Objects;
 
 @Path( "manage/persons" )
-public class PersonsManager extends JFrame {
+public class PersonsManager {
 
     private static Logger logger = LoggerFactory.getLogger( MethodHandles.lookup().lookupClass() );
 
     @GET
     @Path( "put" )
     @Produces( "text/plain" )
-    public String put( @QueryParam( "id" ) String id, @QueryParam( "x" ) String x, @QueryParam( "y" ) String y ) {
+    public String put( @QueryParam( "id" ) String id, @QueryParam( "x" ) Integer x, @QueryParam( "y" ) Integer y ) {
         Objects.requireNonNull( id );
         if( ( x != null && y == null ) )
             throw new NullPointerException();
         else if( ( y != null && x == null ) )
             throw new NullPointerException();
 
-        int intX = x != null ? Integer.valueOf( x ) : Rand.uniform( Area.PREF_AREA_WIDTH );
-        int intY = y != null ? Integer.valueOf( y ) : Rand.uniform( Area.PREF_AREA_HEIGHT );
-        Person person = new Person( id, intX, intY );
+        Person person = new Person( id, x != null ? x : Rand.uniform( Area.PREF_AREA_WIDTH ), y != null ? y : Rand.uniform( Area.PREF_AREA_HEIGHT ) );
         Area.getInstance().addUnit( person );
         return person.toString();
     }
