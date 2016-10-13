@@ -1,5 +1,7 @@
 # area
 
+[![Build Status](https://travis-ci.org/DNAlchemist/area.svg?branch=master)](https://travis-ci.org/DNAlchemist/area)
+
 ## How to run application
 
 ```bash
